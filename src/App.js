@@ -15,7 +15,7 @@ const App = () => {
 
     const [currentColorArrangement, setCurrentColorArrangement] = useState([])
 
-    const checkForColomnOfFour = () => {
+    const checkForColumnOfFour = () => {
       for (let i = 0; i < 39; i++) {
         const columnOfFour = [i, i +width, i + width * 2, i + width * 3]
         const decidedColor = currentColorArrangement[i];
@@ -66,6 +66,23 @@ const App = () => {
       }
     }
 
+    const moveIntoSquareBelow = () => {
+      for (let i = 0; i < 64 - width; i++ ) {
+        const firstRow = [0, 1, 2, 3,, 4, 5, 6, 7]
+        const isFirstRow = firstRow.includes(i)
+
+        if(isFirstRow && currentColorArrangement[i] === '') {
+          let randomNumber =  Math.floor(Math.random() * candyColors.length)
+            currentColorArrangement[i] = candyColors[randomNumber]
+        }
+
+        if ((currentColorArrangement[i + width]) === '') {
+          currentColorArrangement[i + width] = currentColorArrangement[i]
+          currentColorArrangement[i] = ''
+        }
+      }
+    }
+
 
     const createBoard = () => {
     
@@ -85,15 +102,16 @@ const App = () => {
 
     useEffect(() => {
       const timer = setInterval(() => {
-        checkForColomnOfFour()
+        checkForColumnOfFour()
         checkForRowOfFour()
         checkForColumnOfThree()
         checkForRowOfThree()
+        moveIntoSquareBelow()
         setCurrentColorArrangement([...currentColorArrangement])
       }, 100)
       return () => clearInterval(timer)
 
-    }, [ checkForColomnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, currentColorArrangement])
+    }, [ checkForColumnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, moveIntoSquareBelow, currentColorArrangement])
     
 
     console.log(currentColorArrangement)
