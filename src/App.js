@@ -184,7 +184,12 @@ const App = () => {
       
   
     return (
-      <div className='app'>
+        <div className='bg-gradient-to-br from-blue-100 via-blue-300 to-blue-500'>
+        <div>
+            <ScoreBoard score={scoreDisplay} />
+            </div>
+      <div className='app
+       h-screen justify-center'>
         <div className='game'>
           {currentColorArrangement.map((candyColor, index) => (
             <img 
@@ -202,8 +207,8 @@ const App = () => {
             />
           ))}
         </div>
-        <ScoreBoard score={scoreDisplay} />
-      </div>
+        </div>
+        </div>
   
     )
   }
